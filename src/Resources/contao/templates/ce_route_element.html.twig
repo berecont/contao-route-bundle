@@ -1,0 +1,49 @@
+
+{% block content %}
+
+<div class="{{ class }} content-route" {{ cssID|raw }}>
+
+    {% if headline %}
+    <{{ hl }}>{{ headline }}</{{ hl }}>
+    {% endif %}
+
+    <form id="routeForm" onsubmit="calculateRoute(event)" target="_blank">
+        <div class="widget widget-text">
+            <label for="start">Meine Startadresse:</label>
+            <input class="text" type="text" id="start" name="start" required />
+        </div>
+        <input type="hidden" id="destination" name="destination" value="{{ route_lat|raw }}, {{ route_long|raw }}" /> 
+
+        <div class="widget widget-submit">
+            <button class="submit" type="submit">
+                {% if route_send is defined and route_send is not empty %}
+                {{ route_send }}
+                {% else %}
+                Route planen
+                {% endif %}
+            </button>
+        </div>    
+        
+        <label class="mt-2 d-block">
+            <small>
+            {% if route_info is defined and route_info is not empty %}
+            {{ route_info }}
+            {% else %}
+            Sie werden zu OpenStreetMap weitergeleitet
+            {% endif %}
+            </small>
+        </label>
+    </form> 
+
+</div>
+
+{% endblock %}
+
+{% block script %}
+
+<script src="bundles/berecontcontaoroute/route.js"></script>
+
+{% endblock %}
+
+
+
