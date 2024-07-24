@@ -32,7 +32,7 @@ class RouteElementController extends AbstractContentElementController
      */
     protected function getResponse(Template $template, ContentModel $model, Request $request): Response
     {
-        // Check if the current scope is backend
+        // Check if the current scope is backend        
         if ($request->attributes->get('_scope') === 'backend') {
             // Use the backend template
             $backendTemplate = new BackendTemplate('be_route_element');
@@ -43,6 +43,6 @@ class RouteElementController extends AbstractContentElementController
             $template->text = $model->text;
         }
 
-        return new Response($template->parse());
+        return $template->getResponse();
     }
 }
