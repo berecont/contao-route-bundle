@@ -1,0 +1,13 @@
+services:
+
+
+    # Contao content element Berecont\ContaoRouteBundle\Controller\ContentElement\RouteElementController
+    Berecont\ContaoRouteBundle\Controller\ContentElement\RouteElementController:
+        tags:
+            - { name: contao.content_element, category: texts, template: ce_route_element, type: route_element }
+            - { name: container.service_subscriber }
+        public: true
+    _instanceof:
+      Symfony\Bundle\FrameworkBundle\Controller\AbstractController:
+        calls:
+          - [ setContainer, [ '@Psr\Container\ContainerInterface' ] ]
