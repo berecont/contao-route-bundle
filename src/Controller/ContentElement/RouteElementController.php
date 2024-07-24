@@ -19,6 +19,8 @@ use Contao\CoreBundle\Controller\ContentElement\AbstractContentElementController
 use Contao\Template;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\RequestStack;
+use Netzmacht\Contao\Toolkit\View\Template\BackendTemplate;
 
 /**
  * Class RouteElementController
@@ -30,8 +32,17 @@ class RouteElementController extends AbstractContentElementController
      */
     protected function getResponse(Template $template, ContentModel $model, Request $request): Response
     {
-        $template->text = $model->text;
+        // Check if the current scope is backend
+        if ($request->attributes->get('_scope') === 'backend') {
+            // Use the backend template
+            $backendTemplate = new BackendTemplate('be_route_element');
+            $backendTemplate->wildcard = '<p>Route berechnen - Zielort: ' . $model->route_lat . ', ' . $model->route_long .  '</p>';
+            return new Response($backendTemplate->parse());
+        } else {
+            // Set the frontend text from the model
+            $template->text = $model->text;
+        }
 
-        return $template->getResponse();
+        return new Response($template->parse());
     }
 }
