@@ -1,30 +1,11 @@
 <?php 
 
-use Contao\CoreBundle\DataContainer\PaletteManipulator;
+use Berecont\ContaoRouteBundle\Controller\ContentElement\RouteElementController;
 use Contao\DataContainer;
 use Contao\System;
 
-PaletteManipulator::create()
-    ->addField('headline', 'type_legend', PaletteManipulator::POSITION_APPEND)
-
-    ->addLegend('route_legend_content', 'headline', PaletteManipulator::POSITION_AFTER)
-
-    
-    ->addField('route_lat', 'route_legend_content', PaletteManipulator::POSITION_APPEND)
-    ->addField('route_long', 'route_legend_content', PaletteManipulator::POSITION_APPEND)
-    ->addField('route_start', 'route_legend_content', PaletteManipulator::POSITION_APPEND)
-    ->addField('route_send', 'route_legend_content', PaletteManipulator::POSITION_APPEND)
-    ->addField('route_info', 'route_legend_content', PaletteManipulator::POSITION_APPEND)
-
-    ->addLegend('expert_legend', 'route_long', PaletteManipulator::POSITION_APPEND)
-    ->addField('cssID', 'expert_legend', PaletteManipulator::POSITION_APPEND)
-    
-    ->addLegend('invisible_legend', 'expert_legend', PaletteManipulator::POSITION_APPEND)
-    ->addField('invisible', 'invisible_legend', PaletteManipulator::POSITION_APPEND)
-    ->addField('start', 'invisible', PaletteManipulator::POSITION_APPEND)
-    ->addField('stop', 'start', PaletteManipulator::POSITION_APPEND)
-
-    ->applyToPalette('default', 'tl_content')
+$GLOBALS['TL_DCA']['tl_content']['palettes']['route_element'] = 
+    '{type_legend},type,headline;{route_legend_content},route_lat,route_long,route_start,route_send,route_info;{expert_legend:hide},cssID;{invisible_legend:hide},invisible,start,stop'
 ;
 
 $GLOBALS['TL_DCA']['tl_content']['fields']['route_lat'] = [
